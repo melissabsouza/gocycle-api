@@ -10,7 +10,6 @@ import java.util.Date;
 @Table(name = "T_GS_PROFILE")
 public class Profile {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profile_cpf")
     private String cpf;
 
