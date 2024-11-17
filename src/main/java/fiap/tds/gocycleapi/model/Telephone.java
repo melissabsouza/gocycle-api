@@ -19,7 +19,7 @@ public class Telephone {
     private String number;
 
     @OneToOne
-    @JoinColumn(name = "profile_cpf", referencedColumnName = "profile_cpf", nullable = false)
+    @JoinColumn(name = "profile_cpf_fk", referencedColumnName = "profile_cpf", nullable = false)
     private Profile profile;
 
 
