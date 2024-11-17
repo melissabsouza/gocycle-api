@@ -58,16 +58,16 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", content = { @Content(mediaType = "application/json",
                     schema = @Schema(implementation = User.class)) }),
-            @ApiResponse(responseCode = "500", description = "User not created",
+            @ApiResponse(responseCode = "409", description = "User already exists",
                     content = @Content) })
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
 
         try{
             User newUser = userService.saveUser(userDTO);
             return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("User already exists", HttpStatus.CONFLICT);
         }
     }
 
@@ -89,14 +89,14 @@ public class UserController {
     @Operation(summary = "Delete a user",
             description = "Delete a user based on their id")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
+            @ApiResponse(responseCode = "204", content = { @Content(mediaType = "application/json",
                     schema = @Schema(implementation = User.class)) }),
             @ApiResponse(responseCode = "404", description = "User not found",
                     content = @Content) })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);
-        return new ResponseEntity<>("User deleted", HttpStatus.OK);
+        return new ResponseEntity<>("User deleted", HttpStatus.NO_CONTENT);
     }
 
 

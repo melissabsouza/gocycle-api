@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, String> {
     Optional<Profile> findByCpf(String cpf);
+
 }

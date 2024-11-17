@@ -41,25 +41,16 @@ public class UserService {
         }
     }
 
-    public User saveUser(UserDTO userDTO){
-        User user = userMapper.toEntity(userDTO);
-        return userRepository.save(user);
+    public User saveUser(UserDTO userDTO) {
+        User newUser = userMapper.toEntity(userDTO);
+
+        if (userRepository.existsByEmail(newUser.getEmail())) {
+            throw new IllegalArgumentException("User already exists");
+        } else {
+            return userRepository.save(newUser);
+        }
     }
 
-
-
-//    public UserDTO saveUser(UserDTO userDTO){
-//        Optional<User> existingUser = userRepository.findById(userDTO.getId());
-//        if (existingUser.isPresent()) {
-//            throw new IllegalArgumentException("User already exists");
-//        }
-//
-//        User user = userMapper.toEntity(userDTO);
-//        User savedUser = userRepository.save(user);
-//
-//        return userMapper.toDto(savedUser);
-//
-//    }
 
     public UserDTO updateUser(Long id, UserDTO userDTO){
         User existingUser = userRepository.findById(id)
