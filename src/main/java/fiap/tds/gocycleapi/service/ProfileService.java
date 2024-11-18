@@ -62,21 +62,16 @@ public class ProfileService {
     }
 
 
-//    public ProfileDTO updateProfile(String cpf, ProfileDTO profileDTO) {
-//        Profile existingProfile
-//    }
-//
-//    public UserDTO updateUser(Long id, UserDTO userDTO){
-//        User existingUser = userRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " not found"));
-//
-//        existingUser.setEmail(userDTO.getEmail());
-//        existingUser.setPassword(userDTO.getPassword());
-//        existingUser.setStatus(userDTO.getStatus());
-//
-//        User updatedUser = userRepository.save(existingUser);
-//        return userMapper.toDto(updatedUser);
-//    }
+    public ProfileDTO updateProfile(String cpf, ProfileDTO profileDTO) {
+        Profile existingProfile = profileRepository.findByCpf(cpf)
+                .orElseThrow(() -> new IllegalArgumentException("Profile with cpf " + cpf + " not found"));
 
+        existingProfile.setBirthdate(profileDTO.getBirthdate());
+        existingProfile.setName(profileDTO.getName());
+        existingProfile.setUsername(profileDTO.getUsername());
+        Profile updatedProfile = profileRepository.save(existingProfile);
+        return profileMapper.toDto(updatedProfile);
+
+    }
 
 }

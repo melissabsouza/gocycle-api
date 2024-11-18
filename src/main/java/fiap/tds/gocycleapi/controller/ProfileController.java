@@ -72,6 +72,20 @@ public class ProfileController {
         }
     }
 
+    @Tag(name = "PUT", description = "PUT API METHODS")
+    @Operation(summary = "Update a profile",
+            description = "Update a profile based on their cpf")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = User.class)) }),
+            @ApiResponse(responseCode = "404", description = "Profile not found",
+                    content = @Content) })
+    @PutMapping("/{cpf}")
+    public ResponseEntity<ProfileDTO> updateUser(@PathVariable String cpf, @RequestBody ProfileDTO profileDTO) {
+        ProfileDTO updatedProfile = profileService.updateProfile(cpf, profileDTO);
+        return new ResponseEntity<>(updatedProfile, HttpStatus.OK);
+    }
+
     @Tag(name = "DELETE", description = "DELETE API METHODS")
     @Operation(summary = "Delete a profile",
             description = "Delete a profile based on their cpf")
