@@ -26,7 +26,7 @@ public class Profile {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "user_id_pk", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id_fk", referencedColumnName = "user_id", nullable = false)
     private User user;
 
 

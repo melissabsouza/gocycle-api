@@ -1,9 +1,7 @@
 package fiap.tds.gocycleapi.controller;
 
 import fiap.tds.gocycleapi.dto.ProfileDTO;
-import fiap.tds.gocycleapi.dto.UserDTO;
 import fiap.tds.gocycleapi.model.Profile;
-import fiap.tds.gocycleapi.model.User;
 import fiap.tds.gocycleapi.service.ProfileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+//TODO
+// PAGEABLE
 
 @RestController
 @RequestMapping("/profiles")
@@ -58,8 +59,8 @@ public class ProfileController {
             description = "Create a new profile")
     @ApiResponses({
             @ApiResponse(responseCode = "201", content = { @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = User.class)) }),
-            @ApiResponse(responseCode = "409", description = "User already exists",
+                    schema = @Schema(implementation = Profile.class)) }),
+            @ApiResponse(responseCode = "409", description = "Profile already exists",
                     content = @Content) })
     @PostMapping
     public ResponseEntity<?> createProfile(@RequestBody ProfileDTO profileDTO) {
@@ -77,11 +78,11 @@ public class ProfileController {
             description = "Update a profile based on their cpf")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = User.class)) }),
+                    schema = @Schema(implementation = Profile.class)) }),
             @ApiResponse(responseCode = "404", description = "Profile not found",
                     content = @Content) })
     @PutMapping("/{cpf}")
-    public ResponseEntity<ProfileDTO> updateUser(@PathVariable String cpf, @RequestBody ProfileDTO profileDTO) {
+    public ResponseEntity<ProfileDTO> updateProfile(@PathVariable String cpf, @RequestBody ProfileDTO profileDTO) {
         ProfileDTO updatedProfile = profileService.updateProfile(cpf, profileDTO);
         return new ResponseEntity<>(updatedProfile, HttpStatus.OK);
     }
@@ -91,10 +92,10 @@ public class ProfileController {
             description = "Delete a profile based on their cpf")
     @ApiResponses({
             @ApiResponse(responseCode = "204", content = { @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = User.class)) }),
+                    schema = @Schema(implementation = Profile.class)) }),
             @ApiResponse(responseCode = "404", description = "Profile not found",
                     content = @Content) })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{cpf}")
     public ResponseEntity<?> deleteProfileByCpf(@PathVariable String cpf) {
         profileService.deleteProfileByCpf(cpf);
         return new ResponseEntity<>("Profile deleted", HttpStatus.NO_CONTENT);

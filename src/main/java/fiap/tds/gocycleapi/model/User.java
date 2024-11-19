@@ -26,5 +26,5 @@ public class User {
 
     @NotNull
     @Column(name = "user_status", length = 100, nullable = false)
-    private StatusType status;
+    private StatusType status = StatusType.ACTIVE;
 }

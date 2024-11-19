@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
+//TODO
 // Pra criar o service desse tem que usar perfil telefone e endereco
-//o sistema de pontos depois tem que ser adicionado por usagem .
+// o sistema de pontos depois tem que ser adicionado por usagem .
 
 @Service
 @AllArgsConstructor

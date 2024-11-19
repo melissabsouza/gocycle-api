@@ -19,6 +19,9 @@ public class OpenAPIConfiguration {
         server.setUrl("http://localhost:8080");
         server.setDescription("Development");
 
+//        server.setUrl("https://gocycle-api.onrender.com");
+//        server.setDescription("Production");
+
         Contact myContact = new Contact();
         myContact.setName("Melissa");
         myContact.setEmail("melissabsouzaa@gmail.com");
