@@ -29,5 +29,14 @@ public class Profile {
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_id", nullable = false)
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "telephone_id_fk", referencedColumnName = "telephone_id", nullable = false)
+    private Telephone telephone;
+
+    @OneToOne
+    @JoinColumn(name = "address_id_fk", referencedColumnName = "address_id", nullable = false)
+    private Address address;
+
+
 
 }

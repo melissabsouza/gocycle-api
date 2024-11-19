@@ -15,5 +15,4 @@ public class AddressDTO {
     private String state;
     private String zipCode;
     private String addInfo;
-    private ProfileDTO profile;
 }

@@ -28,8 +28,4 @@ public class Address {
 
     @Column(name = "address_add_info", length = 10, nullable = false)
     private String addInfo;
-
-    @OneToOne
-    @JoinColumn(name = "profile_cpf_fk", referencedColumnName = "profile_cpf", nullable = false)
-    private Profile profile;
 }

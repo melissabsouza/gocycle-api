@@ -2,11 +2,15 @@ package fiap.tds.gocycleapi.service;
 
 
 import fiap.tds.gocycleapi.dto.ProfileDTO;
-import fiap.tds.gocycleapi.dto.UserDTO;
+import fiap.tds.gocycleapi.model.Address;
 import fiap.tds.gocycleapi.model.Profile;
-import fiap.tds.gocycleapi.model.User;
+import fiap.tds.gocycleapi.model.Telephone;
+import fiap.tds.gocycleapi.repository.AddressRepository;
 import fiap.tds.gocycleapi.repository.ProfileRepository;
+import fiap.tds.gocycleapi.repository.TelephoneRepository;
+import fiap.tds.gocycleapi.service.mapper.AddressMapper;
 import fiap.tds.gocycleapi.service.mapper.ProfileMapper;
+import fiap.tds.gocycleapi.service.mapper.TelephoneMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +28,12 @@ import java.util.stream.Collectors;
 public class ProfileService {
 
     private ProfileRepository profileRepository;
+    private AddressRepository addressRepository;
+    private TelephoneRepository telephoneRepository;
+
     private ProfileMapper profileMapper;
+    private AddressMapper addressMapper;
+    private TelephoneMapper telephoneMapper;
 
     @Transactional
     public List<ProfileDTO> getAllProfiles() {
@@ -48,16 +57,42 @@ public class ProfileService {
         }
     }
 
-    public Profile saveProfile(ProfileDTO profileDTO) {
+//    Endereco endereco = enderecoMapper.toEntity(clinicaDTO.getEndereco());
+//    Endereco savedEndereco = enderecoRepository.save(endereco);
+//
+//    Telefone telefone = telefoneMapper.toEntity(clinicaDTO.getTelefone());
+//    Telefone savedTelefone = telefoneRepository.save(telefone);
+//
+//
+//    Clinica clinica = clinicaMapper.toEntity(clinicaDTO);
+//        clinica.setUsuario(savedUsuario);
+//        clinica.setEndereco(savedEndereco);
+//        clinica.setTelefone(savedTelefone);
+//
+//    Clinica savedClinica = clinicaRepository.save(clinica);
+//        return clinicaMapper.toDto(savedClinica);
+
+    public ProfileDTO saveProfile(ProfileDTO profileDTO) {
+
         Optional<Profile> newProfile = profileRepository.findByCpf(profileDTO.getCpf());
 
         if(newProfile.isPresent()){
             throw new IllegalArgumentException("Profile already exists");
-        } else{
-
-            Profile profile = profileMapper.toEntity(profileDTO);
-            return profileRepository.save(profile);
         }
+
+        Address address = addressMapper.toEntity(profileDTO.getAddress());
+        Address savedAddress = addressRepository.save(address);
+
+        Telephone telephone = telephoneMapper.toEntity(profileDTO.getTelephone());
+        Telephone savedTelephone = telephoneRepository.save(telephone);
+
+        Profile profile = profileMapper.toEntity(profileDTO);
+        profile.setAddress(savedAddress);
+        profile.setTelephone(savedTelephone);
+
+         Profile savedProfile = profileRepository.save(profile);
+
+         return profileMapper.toDto(savedProfile);
 
     }
 

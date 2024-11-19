@@ -11,5 +11,4 @@ public class TelephoneDTO {
     private Long id;
     private String ddd;
     private String number;
-    private ProfileDTO profile;
 }

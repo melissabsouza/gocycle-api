@@ -66,7 +66,7 @@ public class ProfileController {
     public ResponseEntity<?> createProfile(@RequestBody ProfileDTO profileDTO) {
 
         try{
-            Profile newProfile = profileService.saveProfile(profileDTO);
+            ProfileDTO newProfile = profileService.saveProfile(profileDTO);
             return new ResponseEntity<>(newProfile, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("Profile already exists", HttpStatus.CONFLICT);

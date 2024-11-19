@@ -18,9 +18,6 @@ public class Telephone {
     @Column(name = "telephone_number", length = 25, nullable = false)
     private String number;
 
-    @OneToOne
-    @JoinColumn(name = "profile_cpf_fk", referencedColumnName = "profile_cpf", nullable = false)
-    private Profile profile;
 
 
 }
