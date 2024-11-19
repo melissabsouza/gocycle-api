@@ -34,14 +34,18 @@ public class AddressService {
     }
 
     public Address saveAddress(AddressDTO addressDTO){
-        Optional<Address> newAddress = addressRepository.findById(addressDTO.getId());
 
-        if(newAddress.isPresent()){
-            throw  new IllegalArgumentException("Address already exists");
-        }else{
-            Address address = addressMapper.toEntity(addressDTO);
-            return addressRepository.save(address);
-        }
+        Address newAddress = addressMapper.toEntity(addressDTO);
+        return addressRepository.save(newAddress);
+
+//        Optional<Address> newAddress = addressRepository.findByProfile(addressDTO.getProfile());
+//
+//        if(newAddress.isPresent()){
+//            throw  new IllegalArgumentException("Profile from Address already exists");
+//        }else{
+//            Address address = addressMapper.toEntity(addressDTO);
+//            return addressRepository.save(address);
+//        }
     }
 
     public AddressDTO updateAddress(Long id, AddressDTO addressDTO){
