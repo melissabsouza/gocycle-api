@@ -16,11 +16,11 @@ public class OpenAPIConfiguration {
     @Bean
     public OpenAPI defineOpenApi() {
         Server server = new Server();
-        server.setUrl("http://localhost:8080");
-        server.setDescription("Development");
-
-//        server.setUrl("https://gocycle-api.onrender.com");
-//        server.setDescription("Production");
+//        server.setUrl("http://localhost:8080");
+//        server.setDescription("Development");
+//
+        server.setUrl("https://gocycle-api.onrender.com");
+        server.setDescription("Production");
 
         Contact myContact = new Contact();
         myContact.setName("Melissa");
