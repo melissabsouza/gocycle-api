@@ -2,7 +2,6 @@ package fiap.tds.gocycleapi.controller;
 
 import fiap.tds.gocycleapi.dto.UsageDTO;
 import fiap.tds.gocycleapi.model.Usage;
-import fiap.tds.gocycleapi.repository.UsageRepository;
 import fiap.tds.gocycleapi.service.UsageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,8 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//TODO PAGEABLE
-// TODO LOGICA DOS PONTOS
+
 // TODO HATEOAS
 
 @RestController
@@ -32,6 +30,17 @@ import java.util.Optional;
 public class UsageController {
 
     private final UsageService usageService;
+
+    @PostMapping("/create")
+    public ResponseEntity<Usage> createUsage(@RequestBody UsageDTO usageDTO) {
+        try {
+            // Chama o serviço para criar o uso, calcular os pontos e atualizar o perfil
+            Usage usage = usageService.saveUsage(usageDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(usage);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
     @Tag(name = "PAGEABLE", description = "PAGEABLE API METHODS")
     @Operation(summary = "List all usages in pages")
@@ -80,26 +89,25 @@ public class UsageController {
 
     }
 
-    @Tag(name = "POST", description = "POST API METHODS")
-    @Operation(summary = "Create a usage",
-            description = "Create a new usage")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", content = { @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Usage.class)) }),
-            @ApiResponse(responseCode = "409", description = "Usage already exists",
-                    content = @Content) })
-    @PostMapping
-    public ResponseEntity<?> createUsage(@RequestBody UsageDTO usageDTO) {
-
-
-
+//    @Tag(name = "POST", description = "POST API METHODS")
+//    @Operation(summary = "Create a usage",
+//            description = "Create a new usage")
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "201", content = { @Content(mediaType = "application/json",
+//                    schema = @Schema(implementation = Usage.class)) }),
+//            @ApiResponse(responseCode = "409", description = "Usage already exists",
+//                    content = @Content) })
+//    @PostMapping
+//    public ResponseEntity<?> createUsage(@RequestBody UsageDTO usageDTO) {
+//
+//
 //        try{
 //            UsageDTO newUsage = usageService.saveUsage(usageDTO);
 //            return new ResponseEntity<>(newUsage, HttpStatus.CREATED);
 //        } catch (IllegalArgumentException e) {
 //            return new ResponseEntity<>("Usage already exists", HttpStatus.CONFLICT);
 //        }
-    }
+//    }
 
     @Tag(name = "PUT", description = "PUT API METHODS")
     @Operation(summary = "Update a usage",

@@ -26,9 +26,6 @@ import java.util.stream.Collectors;
 
 // Cria/edita o profile, telephone e address
 
-//TODO
-// Pra criar o service desse tem que usar perfil telefone e endereco
-// o sistema de pontos depois tem que ser adicionado por usagem .
 
 @Service
 @AllArgsConstructor

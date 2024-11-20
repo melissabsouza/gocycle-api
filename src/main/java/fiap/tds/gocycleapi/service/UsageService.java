@@ -2,6 +2,7 @@ package fiap.tds.gocycleapi.service;
 
 import fiap.tds.gocycleapi.dto.UsageDTO;
 import fiap.tds.gocycleapi.model.Payment;
+import fiap.tds.gocycleapi.model.Profile;
 import fiap.tds.gocycleapi.model.Usage;
 import fiap.tds.gocycleapi.repository.PaymentRepository;
 import fiap.tds.gocycleapi.repository.ProfileRepository;
@@ -14,11 +15,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-// TODO LOGICA DOS PONTOS
 
 @Service
 @AllArgsConstructor
@@ -26,11 +27,10 @@ public class UsageService {
 
     private UsageRepository usageRepository;
     private PaymentRepository paymentRepository;
+    private ProfileRepository profileRepository;
 
     private UsageMapper usageMapper;
     private PaymentMapper paymentMapper;
-
-    private ProfileRepository profileRepository;
 
 
 
@@ -53,13 +53,7 @@ public class UsageService {
     }
 
 
-    public UsageDTO saveUsage(UsageDTO usageDTO) {
-
-
-
-
-
-
+//    public UsageDTO saveUsage(UsageDTO usageDTO) {
 //        Optional<Usage> newUsage = usageRepository.findById(usageDTO.getId());
 //        if (newUsage.isPresent()) {
 //            throw new IllegalArgumentException("Usage already exists");
@@ -73,8 +67,10 @@ public class UsageService {
 //
 //        Usage savedUsage = usageRepository.save(usage);
 //        return usageMapper.toDto(savedUsage);
+//
+//    }
 
-    }
+
 
     public UsageDTO updateUsage(Long id, UsageDTO usageDTO) {
         Usage existingUsage = usageRepository.findById(id)
@@ -101,4 +97,46 @@ public class UsageService {
             throw new IllegalArgumentException("Usage not found");
         }
     }
+
+    public Usage saveUsage(UsageDTO usageDTO) {
+        Profile profile = new Profile();
+        profile.setCpf(usageDTO.getProfile().getCpf());
+
+        profile = profileRepository.findByCpf(profile.getCpf())
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+
+        Duration duration = java.time.Duration.between(usageDTO.getPickupDateTime(), usageDTO.getReturnDateTime());
+
+        long durationInHours = duration.toHours();
+
+        int earnedPoints = (int) durationInHours * 10; // 10 pontos ganhos
+
+        float paymentAmount = durationInHours * 20; // 20 reais por hora
+
+
+        Payment payment = new Payment();
+        payment.setAmount(paymentAmount);
+        payment.setType(usageDTO.getPayment().getType());
+
+
+        if (payment.getId() == null) {
+            payment = paymentRepository.save(payment);
+        }
+
+
+        Usage newUsage = new Usage();
+        newUsage.setProfile(profile);
+        newUsage.setPickupDateTime(usageDTO.getPickupDateTime());
+        newUsage.setReturnDateTime(usageDTO.getReturnDateTime());
+        newUsage.setPayment(payment);
+        newUsage.setUsageScore(earnedPoints);
+        newUsage.setDuration(durationInHours);
+
+        // Update score in profile
+        profile.setScore(profile.getScore() + earnedPoints);
+        profileRepository.save(profile);
+
+        return usageRepository.save(newUsage);
+    }
 }
+
