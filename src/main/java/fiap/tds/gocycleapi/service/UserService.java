@@ -5,6 +5,8 @@ import fiap.tds.gocycleapi.model.User;
 import fiap.tds.gocycleapi.repository.UserRepository;
 import fiap.tds.gocycleapi.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +32,11 @@ public class UserService {
     @Transactional
     public Optional<UserDTO> getUserById(Long id){
         return userRepository.findById(id).map(userMapper::toDto);
+    }
+
+    // Paginação
+    public Page<UserDTO> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable).map(userMapper::toDto);
     }
 
     public void deleteUserById(Long id){

@@ -10,8 +10,13 @@ import fiap.tds.gocycleapi.repository.ProfileRepository;
 import fiap.tds.gocycleapi.repository.TelephoneRepository;
 import fiap.tds.gocycleapi.service.mapper.AddressMapper;
 import fiap.tds.gocycleapi.service.mapper.ProfileMapper;
+import fiap.tds.gocycleapi.service.mapper.ProfileMapperImpl;
 import fiap.tds.gocycleapi.service.mapper.TelephoneMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +34,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProfileService {
 
+    private final ProfileMapperImpl profileMapperImpl;
     private ProfileRepository profileRepository;
     private AddressRepository addressRepository;
     private TelephoneRepository telephoneRepository;
@@ -43,6 +49,12 @@ public class ProfileService {
                 .stream()
                 .map(profileMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+
+    // Paginação
+    public Page<ProfileDTO> findAll(Pageable pageable) {
+        return profileRepository.findAll(pageable).map(profileMapper::toDto);
     }
 
     @Transactional

@@ -17,6 +17,7 @@ public class Payment {
     @Column(name = "payment_amount")
     private float amount;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "payment_type", length = 20, nullable = false)
     private PaymentType type;
 }

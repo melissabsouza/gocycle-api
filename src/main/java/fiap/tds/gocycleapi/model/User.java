@@ -25,6 +25,7 @@ public class User {
     private String password;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "user_status", length = 100, nullable = false)
-    private StatusType status = StatusType.ACTIVE;
+    private StatusType status;
 }

@@ -2,6 +2,7 @@ package fiap.tds.gocycleapi.controller;
 
 import fiap.tds.gocycleapi.dto.UsageDTO;
 import fiap.tds.gocycleapi.model.Usage;
+import fiap.tds.gocycleapi.repository.UsageRepository;
 import fiap.tds.gocycleapi.service.UsageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +11,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +32,25 @@ import java.util.Optional;
 public class UsageController {
 
     private final UsageService usageService;
+
+    @Tag(name = "PAGEABLE", description = "PAGEABLE API METHODS")
+    @Operation(summary = "List all usages in pages")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Usage.class)) }),
+            @ApiResponse(responseCode = "404", description = "usages not found",
+                    content = @Content) })
+    @GetMapping("/pageable")
+    public ResponseEntity<Page<UsageDTO>> read(
+            @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+    ) {
+        Page<UsageDTO> usages = usageService.findAll(pageable);
+        if (usages.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else{
+            return new ResponseEntity<>(usages, HttpStatus.OK);
+        }
+    }
 
     @Tag(name = "GET", description = "GET GET API METHODS")
     @Operation(summary = "List all Usages")
@@ -65,14 +89,16 @@ public class UsageController {
             @ApiResponse(responseCode = "409", description = "Usage already exists",
                     content = @Content) })
     @PostMapping
-    public ResponseEntity<?> createProfile(@RequestBody UsageDTO usageDTO) {
+    public ResponseEntity<?> createUsage(@RequestBody UsageDTO usageDTO) {
 
-        try{
-            UsageDTO newUsage = usageService.saveUsage(usageDTO);
-            return new ResponseEntity<>(newUsage, HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>("Usage already exists", HttpStatus.CONFLICT);
-        }
+
+
+//        try{
+//            UsageDTO newUsage = usageService.saveUsage(usageDTO);
+//            return new ResponseEntity<>(newUsage, HttpStatus.CREATED);
+//        } catch (IllegalArgumentException e) {
+//            return new ResponseEntity<>("Usage already exists", HttpStatus.CONFLICT);
+//        }
     }
 
     @Tag(name = "PUT", description = "PUT API METHODS")

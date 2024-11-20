@@ -55,3 +55,42 @@ CREATE TABLE T_GS_USAGE(
                            FOREIGN KEY (payment_id_fk) REFERENCES T_GS_PAYMENT(payment_id)
 
 );
+
+INSERT INTO T_GS_USER (user_email, user_password, user_status) VALUES
+                                                                   ('user1@example.com', 'password1', 'ACTIVE'),
+                                                                   ('user2@example.com', 'password2', 'ACTIVE'),
+                                                                   ('user3@example.com', 'password3', 'ACTIVE'),
+                                                                   ('user4@example.com', 'password4', 'ACTIVE'),
+                                                                   ('user5@example.com', 'password5', 'ACTIVE');
+INSERT INTO T_GS_TELEPHONE (telephone_ddd, telephone_number) VALUES
+                                                                 ('11', '99999-0001'),
+                                                                 ('21', '98888-0002'),
+                                                                 ('31', '97777-0003'),
+                                                                 ('41', '96666-0004'),
+                                                                 ('51', '95555-0005');
+
+INSERT INTO T_GS_ADDRESS (address_street, address_number, address_add_info, address_city, address_state, address_zipcode) VALUES
+                                                                                                                              ('Street A', '100', 'Apt 1', 'City1', 'State1', '12345-000'),
+                                                                                                                              ('Street B', '200', 'Apt 2', 'City2', 'State2', '12345-001'),
+                                                                                                                              ('Street C', '300', NULL, 'City3', 'State3', '12345-002'),
+                                                                                                                              ('Street D', '400', 'Suite 10', 'City4', 'State4', '12345-003'),
+                                                                                                                              ('Street E', '500', NULL, 'City5', 'State5', '12345-004');
+INSERT INTO T_GS_PAYMENT (payment_amount, payment_type) VALUES
+                                                            (50.0, 'PIX'),
+                                                            (100.0, 'PIX'),
+                                                            (75.0, 'PIX'),
+                                                            (150.0, 'PIX'),
+                                                            (25.0, 'PIX');
+INSERT INTO T_GS_PROFILE (profile_cpf, profile_birthdate, profile_username, profile_score, profile_name, user_id_fk, address_id_fk, telephone_id_fk) VALUES
+                                                                                                                                                         ('111.111.111-11', '2000-01-01', 'userone', 500, 'User One', 1, 1, 1),
+                                                                                                                                                         ('222.222.222-22', '1995-05-05', 'usertwo', 400, 'User Two', 2, 2, 2),
+                                                                                                                                                         ('333.333.333-33', '1990-10-10', 'userthree', 300, 'User Three', 3, 3, 3),
+                                                                                                                                                         ('444.444.444-44', '1985-12-12', 'userfour', 200, 'User Four', 4, 4, 4),
+                                                                                                                                                         ('555.555.555-55', '1980-07-07', 'userfive', 100, 'User Five', 5, 5, 5);
+
+INSERT INTO T_GS_USAGE (pickup_datetime, return_datetime, usage_duration, usage_score, profile_cpf_fk, payment_id_fk) VALUES
+                                                                                                                          ('2024-01-01', '2024-01-02', 24.0, 100, '111.111.111-11', 1),
+                                                                                                                          ('2024-02-01', '2024-02-02', 48.0, 200, '222.222.222-22', 2),
+                                                                                                                          ('2024-03-01', '2024-03-02', 12.0, 150, '333.333.333-33', 3),
+                                                                                                                          ('2024-04-01', '2024-04-02', 36.0, 250, '444.444.444-44', 4),
+                                                                                                                          ('2024-05-01', '2024-05-02', 72.0, 300, '555.555.555-55', 5);

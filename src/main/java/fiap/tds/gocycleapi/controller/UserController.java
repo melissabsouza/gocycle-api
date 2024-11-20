@@ -1,7 +1,11 @@
 package fiap.tds.gocycleapi.controller;
 
+import fiap.tds.gocycleapi.dto.ProfileDTO;
+import fiap.tds.gocycleapi.dto.UsageDTO;
 import fiap.tds.gocycleapi.dto.UserDTO;
+import fiap.tds.gocycleapi.model.Usage;
 import fiap.tds.gocycleapi.model.User;
+import fiap.tds.gocycleapi.repository.UserRepository;
 import fiap.tds.gocycleapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +14,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +35,25 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+
+    @Tag(name = "PAGEABLE", description = "PAGEABLE API METHODS")
+    @Operation(summary = "List all users in pages")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = User.class)) }),
+            @ApiResponse(responseCode = "404", description = "users not found",
+                    content = @Content) })
+    @GetMapping("/pageable")
+    public ResponseEntity<Page<UserDTO>> read(
+            @PageableDefault(size = 3, sort = "email", direction = Sort.Direction.ASC) Pageable pageable
+    ) {
+        Page<UserDTO> users = userService.findAll(pageable);
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else{
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }
+    }
 
     @Tag(name = "GET", description = "GET GET API METHODS")
     @Operation(summary = "List all users")

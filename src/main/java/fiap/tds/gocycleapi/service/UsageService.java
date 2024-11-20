@@ -4,10 +4,13 @@ import fiap.tds.gocycleapi.dto.UsageDTO;
 import fiap.tds.gocycleapi.model.Payment;
 import fiap.tds.gocycleapi.model.Usage;
 import fiap.tds.gocycleapi.repository.PaymentRepository;
+import fiap.tds.gocycleapi.repository.ProfileRepository;
 import fiap.tds.gocycleapi.repository.UsageRepository;
 import fiap.tds.gocycleapi.service.mapper.PaymentMapper;
 import fiap.tds.gocycleapi.service.mapper.UsageMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,8 @@ public class UsageService {
     private UsageMapper usageMapper;
     private PaymentMapper paymentMapper;
 
+    private ProfileRepository profileRepository;
+
 
 
     @Transactional
@@ -42,21 +47,32 @@ public class UsageService {
         return usageRepository.findById(id).map(usageMapper::toDto);
     }
 
+    // Paginação
+    public Page<UsageDTO> findAll(Pageable pageable) {
+        return usageRepository.findAll(pageable).map(usageMapper::toDto);
+    }
+
 
     public UsageDTO saveUsage(UsageDTO usageDTO) {
-        Optional<Usage> newUsage = usageRepository.findById(usageDTO.getId());
-        if (newUsage.isPresent()) {
-            throw new IllegalArgumentException("Usage already exists");
-        }
 
-        Payment payment = paymentMapper.toEntity(usageDTO.getPayment());
-        Payment newPayment = paymentRepository.save(payment);
 
-        Usage usage = usageMapper.toEntity(usageDTO);
-        usage.setPayment(newPayment);
 
-        Usage savedUsage = usageRepository.save(usage);
-        return usageMapper.toDto(savedUsage);
+
+
+
+//        Optional<Usage> newUsage = usageRepository.findById(usageDTO.getId());
+//        if (newUsage.isPresent()) {
+//            throw new IllegalArgumentException("Usage already exists");
+//        }
+//
+//        Payment payment = paymentMapper.toEntity(usageDTO.getPayment());
+//        Payment newPayment = paymentRepository.save(payment);
+//
+//        Usage usage = usageMapper.toEntity(usageDTO);
+//        usage.setPayment(newPayment);
+//
+//        Usage savedUsage = usageRepository.save(usage);
+//        return usageMapper.toDto(savedUsage);
 
     }
 
