@@ -19,6 +19,7 @@ import java.util.Optional;
 
 //TODO
 // PAGEABLE
+// TODO HATEOAS
 
 @RestController
 @RequestMapping("/profiles")
@@ -100,4 +101,6 @@ public class ProfileController {
         profileService.deleteProfileByCpf(cpf);
         return new ResponseEntity<>("Profile deleted", HttpStatus.NO_CONTENT);
     }
+
+
 }

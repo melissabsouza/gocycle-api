@@ -19,6 +19,7 @@ import java.util.Optional;
 
 //TODO
 // PAGEABLE
+// TODO HATEOAS
 
 @RestController
 @RequestMapping("/users")
