@@ -19,8 +19,4 @@ public class Payment {
 
     @Column(name = "payment_type", length = 20, nullable = false)
     private PaymentType type;
-
-    @OneToOne
-    @JoinColumn(name = "usage_id_pk", referencedColumnName = "usage_id", nullable = false)
-    private Usage usage;
 }

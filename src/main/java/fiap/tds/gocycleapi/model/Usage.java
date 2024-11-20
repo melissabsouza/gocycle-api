@@ -30,4 +30,8 @@ public class Usage {
     @JoinColumn(name = "profile_cpf_fk")
     private Profile profile;
 
+    @OneToOne
+    @JoinColumn(name = "payment_id_fk", referencedColumnName = "payment_id", nullable = false)
+    private Payment payment;
+
 }

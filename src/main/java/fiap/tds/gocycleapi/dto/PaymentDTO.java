@@ -12,5 +12,4 @@ public class PaymentDTO {
     private Long id;
     private float amount;
     private PaymentType type;
-    private UsageDTO usage;
 }

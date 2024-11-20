@@ -16,4 +16,5 @@ public class UsageDTO {
     private float duration;
     private int usageScore;
     private ProfileDTO profile;
+    private PaymentDTO payment;
 }

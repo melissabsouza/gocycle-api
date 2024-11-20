@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// Cria/edita o profile, telephone e address
+
 //TODO
 // Pra criar o service desse tem que usar perfil telefone e endereco
 // o sistema de pontos depois tem que ser adicionado por usagem .
@@ -57,20 +59,6 @@ public class ProfileService {
         }
     }
 
-//    Endereco endereco = enderecoMapper.toEntity(clinicaDTO.getEndereco());
-//    Endereco savedEndereco = enderecoRepository.save(endereco);
-//
-//    Telefone telefone = telefoneMapper.toEntity(clinicaDTO.getTelefone());
-//    Telefone savedTelefone = telefoneRepository.save(telefone);
-//
-//
-//    Clinica clinica = clinicaMapper.toEntity(clinicaDTO);
-//        clinica.setUsuario(savedUsuario);
-//        clinica.setEndereco(savedEndereco);
-//        clinica.setTelefone(savedTelefone);
-//
-//    Clinica savedClinica = clinicaRepository.save(clinica);
-//        return clinicaMapper.toDto(savedClinica);
 
     public ProfileDTO saveProfile(ProfileDTO profileDTO) {
 
@@ -101,9 +89,20 @@ public class ProfileService {
         Profile existingProfile = profileRepository.findByCpf(cpf)
                 .orElseThrow(() -> new IllegalArgumentException("Profile with cpf " + cpf + " not found"));
 
+        Address address = addressMapper.toEntity(profileDTO.getAddress());
+        address.setId(existingProfile.getAddress().getId());
+        Address updatedAddress = addressRepository.save(address);
+
+        Telephone telephone = telephoneMapper.toEntity(profileDTO.getTelephone());
+        telephone.setId(existingProfile.getTelephone().getId());
+        Telephone updatedTelephone = telephoneRepository.save(telephone);
+
         existingProfile.setBirthdate(profileDTO.getBirthdate());
         existingProfile.setName(profileDTO.getName());
         existingProfile.setUsername(profileDTO.getUsername());
+        existingProfile.setTelephone(updatedTelephone);
+        existingProfile.setAddress(updatedAddress);
+
         Profile updatedProfile = profileRepository.save(existingProfile);
         return profileMapper.toDto(updatedProfile);
 
