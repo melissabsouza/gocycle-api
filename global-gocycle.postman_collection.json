@@ -1,442 +1,442 @@
 {
-	"info": {
-		"_postman_id": "e92b2778-af20-4014-835d-0cbf8c007b2e",
-		"name": "global-gocycle",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "34069903"
-	},
-	"item": [
-		{
-			"name": "users-pageable",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/users/pageable?page=0",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"pageable"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "0"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users-list",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "user-id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"joão@gmail.com\",\r\n  \"password\": \"joao123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"joao2@gmail.com\",\r\n  \"password\": \"j123456\",\r\n  \"status\": \"ACTIVE\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/users/6",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"6"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "profiles-pageable",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/profiles/pageable?page=0",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"profiles",
-						"pageable"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "0"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "profiles-list",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/profiles",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"profiles"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "profile-cpf",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/profiles/123456789",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"profiles",
-						"123456789"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "profiles",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"cpf\": \"123456789\",\r\n  \"birthdate\": \"2004-11-17T03:19:19.148Z\",\r\n  \"username\": \"João\",\r\n  \"score\": 0,\r\n  \"name\": \"João Silva\",\r\n  \"user\": {\r\n    \"id\": 6\r\n  },\r\n  \"telephone\": {\r\n    \"ddd\": \"11\",\r\n    \"number\": \"152557446\"\r\n  },\r\n  \"address\": {\r\n    \"street\": \"av paulista\",\r\n    \"number\": 1100,\r\n    \"city\": \"são paulo\",\r\n    \"state\": \"sp\",\r\n    \"zipCode\": \"01311100\",\r\n    \"addInfo\": \" \"\r\n  }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/profiles",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"profiles"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "profiles",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"cpf\": \"123456789\",\r\n  \"birthdate\": \"2004-08-03\",\r\n  \"username\": \"João\",\r\n  \"score\": 0,\r\n  \"name\": \"João Silva\",\r\n  \"user\": {\r\n    \"id\": 6\r\n  },\r\n  \"telephone\": {\r\n    \"ddd\": \"12\",\r\n    \"number\": \"1525574469\"\r\n  },\r\n  \"address\": {\r\n    \"street\": \"av paulista\",\r\n    \"number\": 1101,\r\n    \"city\": \"são paulo\",\r\n    \"state\": \"sp\",\r\n    \"zipCode\": \"01311101\",\r\n    \"addInfo\": \"6 andar\"\r\n  }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/profiles/123456789",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"profiles",
-						"123456789"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "profiles",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"cpf\": \"123456789\",\r\n  \"birthdate\": \"2004-08-03\",\r\n  \"username\": \"João\",\r\n  \"score\": 0,\r\n  \"name\": \"João Silva\",\r\n  \"user\": {\r\n    \"id\": 1\r\n  },\r\n  \"telephone\": {\r\n    \"ddd\": \"12\",\r\n    \"number\": \"1525574469\"\r\n  },\r\n  \"address\": {\r\n    \"street\": \"av paulista\",\r\n    \"number\": 1101,\r\n    \"city\": \"são paulo\",\r\n    \"state\": \"sp\",\r\n    \"zipCode\": \"01311101\",\r\n    \"addInfo\": \"6 andar\"\r\n  }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/profiles/123456789",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"profiles",
-						"123456789"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "usages-pageable",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/usages?page=0",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usages"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "0"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "usages-list",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/usages",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usages"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "usages-id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/usages/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usages",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "usages",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"pickupDateTime\": \"2024-11-20T10:00:00.592Z\",\r\n  \"returnDateTime\": \"2024-11-20T11:00:00.592Z\",\r\n  \"profile\": {\r\n    \"cpf\": \"123456789\"\r\n  },\r\n  \"payment\": {\r\n    \"type\": \"DEBIT\"\r\n  }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/usages/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usages",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "usages",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/usages/3",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usages",
-						"3"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/profiles/pageable?page=2",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/profiles/pageable?page=2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"profiles",
-						"pageable"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "e92b2778-af20-4014-835d-0cbf8c007b2e",
+    "name": "global-gocycle",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34069903"
+  },
+  "item": [
+    {
+      "name": "users-pageable",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/users/pageable?page=0",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users",
+            "pageable"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "users-list",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "user-id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/users/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "users",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"joão@gmail.com\",\r\n  \"password\": \"joao123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "users",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"joao2@gmail.com\",\r\n  \"password\": \"j123456\",\r\n  \"status\": \"ACTIVE\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/users/6",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users",
+            "6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "users",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/users/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "profiles-pageable",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/profiles/pageable?page=0",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "profiles",
+            "pageable"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "profiles-list",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/profiles",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "profiles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "profile-cpf",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/profiles/123456789",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "profiles",
+            "123456789"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "profiles",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"cpf\": \"123456789\",\r\n  \"birthdate\": \"2004-11-17T03:19:19.148Z\",\r\n  \"username\": \"João\",\r\n  \"score\": 0,\r\n  \"name\": \"João Silva\",\r\n  \"user\": {\r\n    \"id\": 6\r\n  },\r\n  \"telephone\": {\r\n    \"ddd\": \"11\",\r\n    \"number\": \"152557446\"\r\n  },\r\n  \"address\": {\r\n    \"street\": \"av paulista\",\r\n    \"number\": 1100,\r\n    \"city\": \"são paulo\",\r\n    \"state\": \"sp\",\r\n    \"zipCode\": \"01311100\",\r\n    \"addInfo\": \" \"\r\n  }\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/profiles",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "profiles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "profiles",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"cpf\": \"123456789\",\r\n  \"birthdate\": \"2004-08-03\",\r\n  \"username\": \"João\",\r\n  \"score\": 0,\r\n  \"name\": \"João Silva\",\r\n  \"user\": {\r\n    \"id\": 6\r\n  },\r\n  \"telephone\": {\r\n    \"ddd\": \"12\",\r\n    \"number\": \"1525574469\"\r\n  },\r\n  \"address\": {\r\n    \"street\": \"av paulista\",\r\n    \"number\": 1101,\r\n    \"city\": \"são paulo\",\r\n    \"state\": \"sp\",\r\n    \"zipCode\": \"01311101\",\r\n    \"addInfo\": \"6 andar\"\r\n  }\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/profiles/123456789",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "profiles",
+            "123456789"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "profiles",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"cpf\": \"123456789\",\r\n  \"birthdate\": \"2004-08-03\",\r\n  \"username\": \"João\",\r\n  \"score\": 0,\r\n  \"name\": \"João Silva\",\r\n  \"user\": {\r\n    \"id\": 1\r\n  },\r\n  \"telephone\": {\r\n    \"ddd\": \"12\",\r\n    \"number\": \"1525574469\"\r\n  },\r\n  \"address\": {\r\n    \"street\": \"av paulista\",\r\n    \"number\": 1101,\r\n    \"city\": \"são paulo\",\r\n    \"state\": \"sp\",\r\n    \"zipCode\": \"01311101\",\r\n    \"addInfo\": \"6 andar\"\r\n  }\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/profiles/123456789",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "profiles",
+            "123456789"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "usages-pageable",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usages?page=0",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usages"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "usages-list",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usages",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usages"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "usages-id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usages/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usages",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "usages",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"pickupDateTime\": \"2024-11-20T10:00:00.592Z\",\r\n  \"returnDateTime\": \"2024-11-20T11:00:00.592Z\",\r\n  \"profile\": {\r\n    \"cpf\": \"123456789\"\r\n  },\r\n  \"payment\": {\r\n    \"type\": \"DEBIT\"\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/usages/create",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usages",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "usages",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usages/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usages",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/profiles/pageable?page=2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/profiles/pageable?page=2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "profiles",
+            "pageable"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
 }
