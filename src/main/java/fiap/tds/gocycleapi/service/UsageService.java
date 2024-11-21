@@ -103,15 +103,18 @@ public class UsageService {
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
 
         Duration duration = java.time.Duration.between(usageDTO.getPickupDateTime(), usageDTO.getReturnDateTime());
-        long durationInHours = duration.toHours();
 
-        int earnedPoints = (int) durationInHours * 10; // 10 pontos por hora
-        float paymentAmount = durationInHours * 20; // 20 reais por hora
+        long durationInMinutes = duration.toMinutes();
+
+        float totalDurationInHours = durationInMinutes / 60.0f;
+
+        int earnedPoints = Math.round(totalDurationInHours * 10);
+
+        float paymentAmount = totalDurationInHours * 20;
 
         Payment payment = new Payment();
         payment.setAmount(paymentAmount);
         payment.setType(usageDTO.getPayment().getType());
-
 
         Usage newUsage = new Usage();
         newUsage.setProfile(profile);
@@ -119,13 +122,13 @@ public class UsageService {
         newUsage.setReturnDateTime(usageDTO.getReturnDateTime());
         newUsage.setPayment(payment);
         newUsage.setUsageScore(earnedPoints);
-        newUsage.setDuration(durationInHours);
 
         profile.setScore(profile.getScore() + earnedPoints);
         profileRepository.save(profile);
 
         return usageRepository.save(newUsage);
     }
+
 
 
 }
