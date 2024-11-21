@@ -1,15 +1,10 @@
 # GoCycle - API
 
-A proposta é criar uma plataforma sustentável que incentiva o uso de bicicletas elétricas, recompensando os usuários 
-a cada hora de utilização com pontos que podem ser trocados por benefícios.
+A proposta é criar uma plataforma sustentável que incentiva o uso de bicicletas elétricas, recompensando os usuários com pontos a cada hora de utilização. Esses pontos podem ser trocados por benefícios.
 
-Sobre a solução: o GoCycle é um aplicativo inovador que combina tecnologia de ponta e sustentabilidade para 
-transformar a forma como nos deslocamos. Com foco em mobilidade inteligente, ele oferece uma experiência prática, 
-sustentável e recompensadora, conectando usuários a bicicletas elétricas em um sistema de aluguel intuitivo. 
-Além de incentivar o uso de energias renováveis, o GoCycle permite que cada hora de uso seja convertida em pontos, que podem ser 
-trocados por benefícios exclusivos. 
-É muito mais do que apenas um app de mobilidade: é um passo em direção a um futuro mais verde e consciente, onde tecnologia e responsabilidade 
-ambiental andam lado a lado.
+Sobre a solução: o GoCycle é um aplicativo inovador que combina tecnologia de ponta e sustentabilidade para transformar nossa forma de locomoção. Com foco em mobilidade inteligente, ele oferece uma experiência prática, sustentável e recompensadora, conectando usuários a bicicletas elétricas em um sistema de aluguel intuitivo. Além de incentivar o uso de energias renováveis, o GoCycle converte cada hora de uso em pontos, que podem ser trocados por benefícios exclusivos. É muito mais do que apenas um app de mobilidade: é um passo em direção a um futuro mais verde e consciente, onde tecnologia e responsabilidade ambiental caminham lado a lado.
+
+O sistema de pontos funciona da seguinte maneira: o usuário ganha 10 pontos por hora de uso do serviço. A ideia é implementar um registro do horário de início e término da utilização do serviço para calcular automaticamente as horas de uso, atribuir os pontos correspondentes e, em seguida, adicioná-los ao perfil do usuário.
 
 Deploy no Render: https://gocycle-api.onrender.com
 
