@@ -5,9 +5,11 @@ import fiap.tds.gocycleapi.dto.ProfileDTO;
 import fiap.tds.gocycleapi.model.Address;
 import fiap.tds.gocycleapi.model.Profile;
 import fiap.tds.gocycleapi.model.Telephone;
+import fiap.tds.gocycleapi.model.User;
 import fiap.tds.gocycleapi.repository.AddressRepository;
 import fiap.tds.gocycleapi.repository.ProfileRepository;
 import fiap.tds.gocycleapi.repository.TelephoneRepository;
+import fiap.tds.gocycleapi.repository.UserRepository;
 import fiap.tds.gocycleapi.service.mapper.AddressMapper;
 import fiap.tds.gocycleapi.service.mapper.ProfileMapper;
 import fiap.tds.gocycleapi.service.mapper.ProfileMapperImpl;
@@ -35,6 +37,7 @@ public class ProfileService {
     private ProfileRepository profileRepository;
     private AddressRepository addressRepository;
     private TelephoneRepository telephoneRepository;
+    private UserRepository userRepository;
 
     private ProfileMapper profileMapper;
     private AddressMapper addressMapper;
@@ -59,23 +62,45 @@ public class ProfileService {
         return profileRepository.findByCpf(cpf).map(profileMapper::toDto);
     }
 
+    // aqui seta o user como nulo pra não ter problema na exclusão
+    @Transactional
     public void deleteProfileByCpf(String cpf) {
         Optional<Profile> existingProfile = profileRepository.findByCpf(cpf);
+
         if (existingProfile.isPresent()) {
-            profileRepository.delete(existingProfile.get());
-        }else{
+            Profile profile = existingProfile.get();
+
+            if (profile.getUser() != null) {
+                profile.setUser(null);
+                profileRepository.save(profile);
+            }
+            profileRepository.delete(profile);
+        } else {
             throw new IllegalArgumentException("Profile not found");
         }
     }
 
 
-    public ProfileDTO saveProfile(ProfileDTO profileDTO) {
+//    @Transactional
+//    public void deleteProfileByCpf(String cpf) {
+//        Optional<Profile> existingProfile = profileRepository.findByCpf(cpf);
+//        if (existingProfile.isPresent()) {
+//            profileRepository.delete(existingProfile.get());
+//        }else{
+//            throw new IllegalArgumentException("Profile not found");
+//        }
+//    }
 
+    @Transactional
+    public ProfileDTO saveProfile(ProfileDTO profileDTO) {
         Optional<Profile> newProfile = profileRepository.findByCpf(profileDTO.getCpf());
 
-        if(newProfile.isPresent()){
+        if (newProfile.isPresent()) {
             throw new IllegalArgumentException("Profile already exists");
         }
+
+        User user = userRepository.findById(profileDTO.getUser().getId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         Address address = addressMapper.toEntity(profileDTO.getAddress());
         Address savedAddress = addressRepository.save(address);
@@ -86,13 +111,12 @@ public class ProfileService {
         Profile profile = profileMapper.toEntity(profileDTO);
         profile.setAddress(savedAddress);
         profile.setTelephone(savedTelephone);
+        profile.setUser(user);
 
-         Profile savedProfile = profileRepository.save(profile);
+        Profile savedProfile = profileRepository.save(profile);
 
-         return profileMapper.toDto(savedProfile);
-
+        return profileMapper.toDto(savedProfile);
     }
-
 
     public ProfileDTO updateProfile(String cpf, ProfileDTO profileDTO) {
         Profile existingProfile = profileRepository.findByCpf(cpf)

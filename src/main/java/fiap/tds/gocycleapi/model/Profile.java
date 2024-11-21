@@ -25,15 +25,15 @@ public class Profile {
     @Column(name = "profile_name", length = 100, nullable = false)
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_id", nullable = false)
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "telephone_id_fk", referencedColumnName = "telephone_id", nullable = false)
     private Telephone telephone;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id_fk", referencedColumnName = "address_id", nullable = false)
     private Address address;
 
