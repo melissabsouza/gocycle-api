@@ -11,8 +11,6 @@ trocados por benefícios exclusivos.
 É muito mais do que apenas um app de mobilidade: é um passo em direção a um futuro mais verde e consciente, onde tecnologia e responsabilidade 
 ambiental andam lado a lado.
 
-[Collection no Postman com os endpoints para teste](https://api.postman.com/collections/34069903-e92b2778-af20-4014-835d-0cbf8c007b2e?access_key=PMAT-01JD61YKDD8WQ4HV1KSR2DKBRC)
-
 Deploy no Render: https://gocycle-api.onrender.com
 
 Swagger: https://gocycle-api.onrender.com//swagger-ui/index.html#/
