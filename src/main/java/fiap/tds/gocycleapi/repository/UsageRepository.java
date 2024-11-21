@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface UsageRepository extends JpaRepository<Usage, Long> {
 
     Optional<Usage> findById(Long id);
+    void deleteByProfileCpf(String cpf);
 }

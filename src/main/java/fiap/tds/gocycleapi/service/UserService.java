@@ -1,7 +1,10 @@
 package fiap.tds.gocycleapi.service;
 
 import fiap.tds.gocycleapi.dto.UserDTO;
+import fiap.tds.gocycleapi.model.Profile;
 import fiap.tds.gocycleapi.model.User;
+import fiap.tds.gocycleapi.repository.ProfileRepository;
+import fiap.tds.gocycleapi.repository.UsageRepository;
 import fiap.tds.gocycleapi.repository.UserRepository;
 import fiap.tds.gocycleapi.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
@@ -21,6 +24,9 @@ public class UserService {
     private UserRepository userRepository;
     private UserMapper userMapper;
 
+    private ProfileRepository profileRepository;
+    private UsageRepository usageRepository;
+
     @Transactional
     public List<UserDTO> getAllUsers(){
         return userRepository.findAll()
@@ -39,14 +45,34 @@ public class UserService {
         return userRepository.findAll(pageable).map(userMapper::toDto);
     }
 
-    public void deleteUserById(Long id){
+    @Transactional
+    public void deleteUserById(Long id) {
+
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
+            List<Profile> profiles = profileRepository.findAll();
+            for (Profile profile : profiles) {
+                if (profile.getUser() != null && profile.getUser().getId().equals(id)) {
+                    usageRepository.deleteByProfileCpf(profile.getCpf());
+                    profileRepository.delete(profile);
+                }
+            }
             userRepository.delete(user.get());
-        } else{
+        } else {
             throw new IllegalArgumentException("User not found");
         }
     }
+
+//    @Transactional
+//    public void deleteUserById(Long id){
+//
+//        Optional<User> user = userRepository.findById(id);
+//        if (user.isPresent()) {
+//            userRepository.delete(user.get());
+//        } else{
+//            throw new IllegalArgumentException("User not found");
+//        }
+//    }
 
     public User saveUser(UserDTO userDTO) {
         User newUser = userMapper.toEntity(userDTO);

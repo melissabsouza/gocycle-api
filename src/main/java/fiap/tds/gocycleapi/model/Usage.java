@@ -30,7 +30,7 @@ public class Usage {
     @JoinColumn(name = "profile_cpf_fk")
     private Profile profile;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "payment_id_fk", referencedColumnName = "payment_id", nullable = false)
     private Payment payment;
 
