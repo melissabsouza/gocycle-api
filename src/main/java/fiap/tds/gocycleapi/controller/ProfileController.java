@@ -15,6 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-// TODO HATEOAS
 
 @RestController
 @RequestMapping("/profiles")
@@ -58,8 +60,17 @@ public class ProfileController {
             @ApiResponse(responseCode = "404", description = "profiles not found",
                     content = @Content) })
     @GetMapping
-    public ResponseEntity<List<ProfileDTO>> getAllProfiles() {
-        return ResponseEntity.ok(profileService.getAllProfiles());
+    public ResponseEntity<List<EntityModel<ProfileDTO>>> getAllProfiles() {
+        List<ProfileDTO> profiles = profileService.getAllProfiles();
+        List<EntityModel<ProfileDTO>> profileModels = profiles.stream()
+                .map(profile -> {
+                    EntityModel<ProfileDTO> profileModel = EntityModel.of(profile);
+                    Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProfileController.class).getProfileByCpf(profile.getCpf())).withSelfRel();
+                    profileModel.add(selfLink);
+                    return profileModel;
+                }).toList();
+
+        return ResponseEntity.ok(profileModels);
     }
 
     @Tag(name = "GET", description = "GET API METHODS")
@@ -71,11 +82,14 @@ public class ProfileController {
             @ApiResponse(responseCode = "404", description = "Profile not found",
                     content = @Content) })
     @GetMapping("/{cpf}")
-    public ResponseEntity<ProfileDTO> getProfileByCpf(@PathVariable String cpf) {
+    public ResponseEntity<EntityModel<ProfileDTO>> getProfileByCpf(@PathVariable String cpf) {
         Optional<ProfileDTO> profileDTO = profileService.getProfileByCpf(cpf);
-        return profileDTO.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-
+        return profileDTO.map(profile -> {
+            EntityModel<ProfileDTO> profileModel = EntityModel.of(profile);
+            Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProfileController.class).getProfileByCpf(cpf)).withSelfRel();
+            profileModel.add(selfLink);
+            return ResponseEntity.ok(profileModel);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Tag(name = "POST", description = "POST API METHODS")
@@ -87,13 +101,15 @@ public class ProfileController {
             @ApiResponse(responseCode = "409", description = "Profile already exists",
                     content = @Content) })
     @PostMapping
-    public ResponseEntity<?> createProfile(@RequestBody ProfileDTO profileDTO) {
-
-        try{
+    public ResponseEntity<EntityModel<ProfileDTO>> createProfile(@RequestBody ProfileDTO profileDTO) {
+        try {
             ProfileDTO newProfile = profileService.saveProfile(profileDTO);
-            return new ResponseEntity<>(newProfile, HttpStatus.CREATED);
+            EntityModel<ProfileDTO> profileModel = EntityModel.of(newProfile);
+            Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProfileController.class).getProfileByCpf(newProfile.getCpf())).withSelfRel();
+            profileModel.add(selfLink);
+            return ResponseEntity.status(HttpStatus.CREATED).body(profileModel);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>("Profile already exists", HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 
@@ -106,9 +122,12 @@ public class ProfileController {
             @ApiResponse(responseCode = "404", description = "Profile not found",
                     content = @Content) })
     @PutMapping("/{cpf}")
-    public ResponseEntity<ProfileDTO> updateProfile(@PathVariable String cpf, @RequestBody ProfileDTO profileDTO) {
+    public ResponseEntity<EntityModel<ProfileDTO>> updateProfile(@PathVariable String cpf, @RequestBody ProfileDTO profileDTO) {
         ProfileDTO updatedProfile = profileService.updateProfile(cpf, profileDTO);
-        return new ResponseEntity<>(updatedProfile, HttpStatus.OK);
+        EntityModel<ProfileDTO> profileModel = EntityModel.of(updatedProfile);
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProfileController.class).updateProfile(cpf, profileDTO)).withSelfRel();
+        profileModel.add(selfLink);
+        return ResponseEntity.ok(profileModel);
     }
 
     @Tag(name = "DELETE", description = "DELETE API METHODS")

@@ -14,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-// TODO HATEOAS
 
 @RestController
 @RequestMapping("/usages")
@@ -40,10 +42,17 @@ public class UsageController {
             @ApiResponse(responseCode = "409", description = "Usage already exists",
                     content = @Content) })
     @PostMapping("/create")
-    public ResponseEntity<Usage> createUsage(@RequestBody UsageDTO usageDTO) {
+    public ResponseEntity<EntityModel<Usage>> createUsage(@RequestBody UsageDTO usageDTO) {
         try {
             Usage usage = usageService.saveUsage(usageDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(usage);
+            EntityModel<Usage> usageModel = EntityModel.of(usage);
+            Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsageController.class).getUsageById(usage.getId())).withSelfRel();
+            usageModel.add(selfLink);
+
+            Link allUsagesLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsageController.class).getAllUsages()).withRel("all-usages");
+            usageModel.add(allUsagesLink);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(usageModel);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(null);
@@ -90,11 +99,21 @@ public class UsageController {
             @ApiResponse(responseCode = "404", description = "Usage not found",
                     content = @Content) })
     @GetMapping("/{id}")
-    public ResponseEntity<UsageDTO> getUsageById(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<UsageDTO>> getUsageById(@PathVariable Long id) {
         Optional<UsageDTO> usageDTO = usageService.getUsageById(id);
-        return usageDTO.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return usageDTO.map(usage -> {
+            EntityModel<UsageDTO> usageModel = EntityModel.of(usage);
+            Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsageController.class).getUsageById(id)).withSelfRel();
+            usageModel.add(selfLink);
 
+            Link updateLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsageController.class).updateUsage(id, usage)).withRel("update-usage");
+            usageModel.add(updateLink);
+
+            Link deleteLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsageController.class).deleteUsageById(id)).withRel("delete-usage");
+            usageModel.add(deleteLink);
+
+            return ResponseEntity.ok(usageModel);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 //    @Tag(name = "POST", description = "POST API METHODS")
@@ -126,10 +145,18 @@ public class UsageController {
             @ApiResponse(responseCode = "404", description = "Usage not found",
                     content = @Content) })
     @PutMapping("/{id}")
-    public ResponseEntity<UsageDTO> updateUsage(@PathVariable Long id, @RequestBody UsageDTO usageDTO) {
+    public ResponseEntity<EntityModel<UsageDTO>> updateUsage(@PathVariable Long id, @RequestBody UsageDTO usageDTO) {
         UsageDTO updatedUsage = usageService.updateUsage(id, usageDTO);
-        return new ResponseEntity<>(updatedUsage, HttpStatus.OK);
+        EntityModel<UsageDTO> usageModel = EntityModel.of(updatedUsage);
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsageController.class).updateUsage(id, usageDTO)).withSelfRel();
+        usageModel.add(selfLink);
+
+        Link usageLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsageController.class).getUsageById(id)).withRel("usage");
+        usageModel.add(usageLink);
+
+        return ResponseEntity.ok(usageModel);
     }
+
 
 
 

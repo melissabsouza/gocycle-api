@@ -1,11 +1,7 @@
 package fiap.tds.gocycleapi.controller;
 
-import fiap.tds.gocycleapi.dto.ProfileDTO;
-import fiap.tds.gocycleapi.dto.UsageDTO;
 import fiap.tds.gocycleapi.dto.UserDTO;
-import fiap.tds.gocycleapi.model.Usage;
 import fiap.tds.gocycleapi.model.User;
-import fiap.tds.gocycleapi.repository.UserRepository;
 import fiap.tds.gocycleapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +24,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
-// TODO HATEOAS
 
 @RestController
 @RequestMapping("/users")
@@ -75,11 +72,24 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User not found",
                     content = @Content) })
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> searchUserById(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<UserDTO>> searchUserById(@PathVariable Long id) {
         Optional<UserDTO> userDTO = userService.getUserById(id);
-        return userDTO.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return userDTO.map(user -> {
+            EntityModel<UserDTO> userModel = EntityModel.of(user);
+            Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).searchUserById(id)).withSelfRel();
+            userModel.add(selfLink);
 
+            Link allUsersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).getAllUsers()).withRel("all-users");
+            userModel.add(allUsersLink);
+
+            Link updateUserLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).updateUser(id, user)).withRel("update-user");
+            userModel.add(updateUserLink);
+
+            Link deleteUserLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).deleteUserById(id)).withRel("delete-user");
+            userModel.add(deleteUserLink);
+
+            return ResponseEntity.ok(userModel);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Tag(name = "POST", description = "POST API METHODS")
@@ -110,9 +120,16 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User not found",
                     content = @Content) })
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<EntityModel<UserDTO>> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         UserDTO updatedUser = userService.updateUser(id, userDTO);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        EntityModel<UserDTO> userModel = EntityModel.of(updatedUser);
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).updateUser(id, userDTO)).withSelfRel();
+        userModel.add(selfLink);
+
+        Link userLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).searchUserById(id)).withRel("user");
+        userModel.add(userLink);
+
+        return ResponseEntity.ok(userModel);
     }
 
     @Tag(name = "DELETE", description = "DELETE API METHODS")
