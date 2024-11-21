@@ -25,8 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//TODO
-// PAGEABLE
+
 // TODO HATEOAS
 
 @RestController
@@ -55,7 +54,7 @@ public class UserController {
         }
     }
 
-    @Tag(name = "GET", description = "GET GET API METHODS")
+    @Tag(name = "GET", description = "GET API METHODS")
     @Operation(summary = "List all users")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",

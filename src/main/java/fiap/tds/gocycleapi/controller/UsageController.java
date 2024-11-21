@@ -31,6 +31,14 @@ public class UsageController {
 
     private final UsageService usageService;
 
+    @Tag(name = "POST", description = "POST API METHODS")
+    @Operation(summary = "Create a usage",
+            description = "Create a new usage")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", content = { @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Usage.class)) }),
+            @ApiResponse(responseCode = "409", description = "Usage already exists",
+                    content = @Content) })
     @PostMapping("/create")
     public ResponseEntity<Usage> createUsage(@RequestBody UsageDTO usageDTO) {
         try {
