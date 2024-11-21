@@ -12,7 +12,6 @@ import fiap.tds.gocycleapi.repository.TelephoneRepository;
 import fiap.tds.gocycleapi.repository.UserRepository;
 import fiap.tds.gocycleapi.service.mapper.AddressMapper;
 import fiap.tds.gocycleapi.service.mapper.ProfileMapper;
-import fiap.tds.gocycleapi.service.mapper.ProfileMapperImpl;
 import fiap.tds.gocycleapi.service.mapper.TelephoneMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProfileService {
 
-    private final ProfileMapperImpl profileMapperImpl;
+
     private ProfileRepository profileRepository;
     private AddressRepository addressRepository;
     private TelephoneRepository telephoneRepository;
