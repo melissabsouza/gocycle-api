@@ -15,10 +15,8 @@ import fiap.tds.gocycleapi.service.mapper.ProfileMapper;
 import fiap.tds.gocycleapi.service.mapper.ProfileMapperImpl;
 import fiap.tds.gocycleapi.service.mapper.TelephoneMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

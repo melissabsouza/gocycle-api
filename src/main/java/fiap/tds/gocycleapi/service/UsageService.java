@@ -99,29 +99,18 @@ public class UsageService {
     }
 
     public Usage saveUsage(UsageDTO usageDTO) {
-        Profile profile = new Profile();
-        profile.setCpf(usageDTO.getProfile().getCpf());
-
-        profile = profileRepository.findByCpf(profile.getCpf())
+        Profile profile = profileRepository.findByCpf(usageDTO.getProfile().getCpf())
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
 
         Duration duration = java.time.Duration.between(usageDTO.getPickupDateTime(), usageDTO.getReturnDateTime());
-
         long durationInHours = duration.toHours();
 
-        int earnedPoints = (int) durationInHours * 10; // 10 pontos ganhos
-
+        int earnedPoints = (int) durationInHours * 10; // 10 pontos por hora
         float paymentAmount = durationInHours * 20; // 20 reais por hora
-
 
         Payment payment = new Payment();
         payment.setAmount(paymentAmount);
         payment.setType(usageDTO.getPayment().getType());
-
-
-        if (payment.getId() == null) {
-            payment = paymentRepository.save(payment);
-        }
 
 
         Usage newUsage = new Usage();
@@ -132,11 +121,12 @@ public class UsageService {
         newUsage.setUsageScore(earnedPoints);
         newUsage.setDuration(durationInHours);
 
-        // Update score in profile
         profile.setScore(profile.getScore() + earnedPoints);
         profileRepository.save(profile);
 
         return usageRepository.save(newUsage);
     }
+
+
 }
 

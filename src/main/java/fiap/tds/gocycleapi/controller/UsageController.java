@@ -34,10 +34,10 @@ public class UsageController {
     @PostMapping("/create")
     public ResponseEntity<Usage> createUsage(@RequestBody UsageDTO usageDTO) {
         try {
-            // Chama o serviço para criar o uso, calcular os pontos e atualizar o perfil
             Usage usage = usageService.saveUsage(usageDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(usage);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(null);
         }
     }
