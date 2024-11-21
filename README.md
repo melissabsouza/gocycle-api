@@ -8,7 +8,7 @@ O sistema de pontos funciona da seguinte maneira: o usuário ganha 10 pontos por
 
 Deploy no Render: https://gocycle-api.onrender.com
 
-Swagger: https://gocycle-api.onrender.com//swagger-ui/index.html#/
+Swagger: https://gocycle-api.onrender.com/swagger-ui/index.html#/
 
 Video Pitch:
 
