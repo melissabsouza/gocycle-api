@@ -6,7 +6,7 @@ Sobre a solução: o GoCycle é um aplicativo inovador que combina tecnologia de
 
 O sistema de pontos funciona da seguinte maneira: o usuário ganha 10 pontos por hora de uso do serviço. A ideia é implementar um registro do horário de início e término da utilização do serviço para calcular automaticamente as horas de uso, atribuir os pontos correspondentes e, em seguida, adicioná-los ao perfil do usuário.
 
-Deploy no Render: https://gocycle-api.onrender.com
+Render: https://gocycle-api.onrender.com
 
 Swagger: https://gocycle-api.onrender.com/swagger-ui/index.html#/
 
