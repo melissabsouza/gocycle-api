@@ -12,7 +12,7 @@ Swagger: https://gocycle-api.onrender.com/swagger-ui/index.html#/
 
 Video Pitch:
 
-Video Testando EndPoints: 
+Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 
 
 # Queries e Json para teste no postman
