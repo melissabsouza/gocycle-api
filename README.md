@@ -21,7 +21,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista usuários com paginação
 ### Method: GET
 >```
->http://localhost:8080/users/pageable?page=0
+>/users/pageable?page=0
 >```
 ### Query Params
 
@@ -37,7 +37,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista usuários
 ### Method: GET
 >```
->http://localhost:8080/users
+>/users
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
@@ -46,7 +46,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista um usuário a partir de seu identificador
 ### Method: GET
 >```
->http://localhost:8080/users/1
+>/users/1
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
@@ -55,7 +55,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Cria um usuário
 ### Method: POST
 >```
->http://localhost:8080/users
+>/users
 >```
 ### Body (**raw**)
 
@@ -73,7 +73,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Edita um usuário
 ### Method: PUT
 >```
->http://localhost:8080/users/6
+>/users/6
 >```
 ### Body (**raw**)
 
@@ -92,7 +92,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Deleta um usuário e em cascada o perfil relacionado
 ### Method: DELETE
 >```
->http://localhost:8080/users/1
+>/users/1
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
@@ -101,7 +101,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista os perfis paginados
 ### Method: GET
 >```
->http://localhost:8080/profiles/pageable?page=0
+>/profiles/pageable?page=0
 >```
 ### Query Params
 
@@ -117,7 +117,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista os perfis 
 ### Method: GET
 >```
->http://localhost:8080/profiles
+>/profiles
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
@@ -126,7 +126,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista um perfil a partir de seu cpf
 ### Method: GET
 >```
->http://localhost:8080/profiles/123456789
+>/profiles/123456789
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
@@ -135,7 +135,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Cria um perfil
 ### Method: POST
 >```
->http://localhost:8080/profiles
+>/profiles
 >```
 ### Body (**raw**)
 
@@ -172,7 +172,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Edita um perfil
 ### Method: PUT
 >```
->http://localhost:8080/profiles/123456789
+>/profiles/123456789
 >```
 ### Body (**raw**)
 
@@ -209,7 +209,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Exclui um perfil a partir de seu cpf
 ### Method: DELETE
 >```
->http://localhost:8080/profiles/123456789
+>/profiles/123456789
 
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
@@ -218,7 +218,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista os usos paginados
 ### Method: GET
 >```
->http://localhost:8080/usages?page=0
+>/usages?page=0
 >```
 ### Query Params
 
@@ -234,7 +234,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista os usos
 ### Method: GET
 >```
->http://localhost:8080/usages
+>/usages
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
@@ -243,7 +243,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Lista um uso a partir de seu identificador 
 ### Method: GET
 >```
->http://localhost:8080/usages/1
+>/usages/1
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
@@ -252,7 +252,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Cria um uso
 ### Method: POST
 >```
->http://localhost:8080/usages/create
+>/usages/create
 >```
 ### Body (**raw**)
 
@@ -276,7 +276,7 @@ Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 - Exclui um uso a partir de seu identificador
 ### Method: DELETE
 >```
->http://localhost:8080/usages/3
+>/usages/1
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
