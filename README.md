@@ -10,7 +10,7 @@ Render: https://gocycle-api.onrender.com
 
 Swagger: https://gocycle-api.onrender.com/swagger-ui/index.html#/
 
-Video Pitch:
+Video Pitch: https://youtu.be/nX8eswD2bJM
 
 Video Testando EndPoints: https://youtu.be/C0nZhFt_YXs
 
